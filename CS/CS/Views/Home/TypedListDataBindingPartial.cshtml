@@ -1,0 +1,29 @@
+﻿@Html.DevExpress().GridView(settings => {
+    settings.Name = "gvTypedListDataBinding";
+    settings.CallbackRouteValues = new { Controller = "Home", Action = "TypedListDataBindingPartial" };
+
+    settings.KeyFieldName = "ID";
+
+    settings.Columns.Add("ID");
+    settings.Columns.Add("Text");
+    settings.Columns.Add("Quantity");
+    settings.Columns.Add("Price");
+        
+    settings.Columns.Add(column => {
+        column.SetDataItemTemplateContent(c => {
+            Html.DevExpress().CheckBox(checkboxSettings => {
+                checkboxSettings.Name = "cb_" + c.KeyValue.ToString();
+                checkboxSettings.Properties.ClientSideEvents.CheckedChanged = "OnCheckedChanged";
+                
+                if(ViewData["items"] != null) {
+                    Dictionary<string, bool> items = (Dictionary<string, bool>)ViewData["items"];
+                    checkboxSettings.Checked = items.ContainsKey(checkboxSettings.Name) && (bool)items[checkboxSettings.Name];
+                }
+                
+            }).Render();
+        });
+    });
+
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallback";
+
+}).Bind(Model).GetHtml()
