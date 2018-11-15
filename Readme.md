@@ -1,3 +1,10 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [HomeController.cs](./CS/CS/Controllers/HomeController.cs) (VB: [HomeController.vb](./VB/Controllers/HomeController.vb))
+* **[Index.cshtml](./CS/CS/Views/Home/Index.cshtml)**
+* [TypedListDataBindingPartial.cshtml](./CS/CS/Views/Home/TypedListDataBindingPartial.cshtml)
+<!-- default file list end -->
 # GridView - How to track changes made with an unbound CheckBox in the DataItemTemplate
 
 
