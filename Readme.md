@@ -11,26 +11,26 @@ This example demonstrates how to create a templated column, add a checkbox edito
 
 Call a column's [SetDataItemTemplateContent](https://docs.devexpress.com/AspNetMvc/DevExpress.Web.Mvc.MVCxGridViewColumn.SetDataItemTemplateContent.overloads) method to specify a template and add a checkbox editor to the template. Specify the editor's `Name` property based on the row's key value.
 
-    ```cshtml
-    @Html.DevExpress().GridView(settings => {
-        settings.Name = "gvTypedListDataBinding";
-        settings.CallbackRouteValues = new { Controller = "Home", Action = "TypedListDataBindingPartial" };
-        settings.KeyFieldName = "ID";
-        settings.Columns.Add(column => {
-            column.SetDataItemTemplateContent(c => {
-                Html.DevExpress().CheckBox(checkboxSettings => {
-                    checkboxSettings.Name = "cb_" + c.KeyValue.ToString();
-                    checkboxSettings.Properties.ClientSideEvents.CheckedChanged = "OnCheckedChanged";
-                    if(ViewData["items"] != null) {
-                        Dictionary<string, bool> items = (Dictionary<string, bool>)ViewData["items"];
-                        checkboxSettings.Checked = items.ContainsKey(checkboxSettings.Name) && (bool)items[checkboxSettings.Name];
-                    }              
-                }).Render();
-            });
+```cshtml
+@Html.DevExpress().GridView(settings => {
+    settings.Name = "gvTypedListDataBinding";
+    settings.CallbackRouteValues = new { Controller = "Home", Action = "TypedListDataBindingPartial" };
+    settings.KeyFieldName = "ID";
+    settings.Columns.Add(column => {
+        column.SetDataItemTemplateContent(c => {
+            Html.DevExpress().CheckBox(checkboxSettings => {
+                checkboxSettings.Name = "cb_" + c.KeyValue.ToString();
+                checkboxSettings.Properties.ClientSideEvents.CheckedChanged = "OnCheckedChanged";
+                if(ViewData["items"] != null) {
+                    Dictionary<string, bool> items = (Dictionary<string, bool>)ViewData["items"];
+                    checkboxSettings.Checked = items.ContainsKey(checkboxSettings.Name) && (bool)items[checkboxSettings.Name];
+                }              
+            }).Render();
         });
-        settings.ClientSideEvents.BeginCallback = "OnBeginCallback";
-    }).Bind(Model).GetHtml()
-    ```
+    });
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallback";
+}).Bind(Model).GetHtml()
+```
 
 Handle the editor's client-side `CheckedChanged` event and use a custom JS object to store the checked editor's key value. When the grid sends a callback to the server, the JS object is serialized and passed to the Controller as a custom parameter. Then this object is deserialized on the View side to restore the editor's state.
 
