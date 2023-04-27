@@ -5,7 +5,7 @@
 <!-- default badges end -->
 # Grid View for ASP.NET MVC - How to track changes of a checkbox editor's state
 <!-- run online -->
-**[[Run Online]](https://codecentral.devexpress.com/e3979/)**
+**[[Run Online]](https://codecentral.devexpress.com/128550757/)**
 <!-- run online end -->
 
 This example demonstrates how to create a templated column, add a checkbox editor to the template, and save the editor's state on callbacks.
